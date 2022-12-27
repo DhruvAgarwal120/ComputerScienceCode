@@ -1,0 +1,102 @@
+{% extends 'base.html' %} {% block content %}
+<div class="nameStock">Name of the Stock:</div>
+<form class="StockName Name2" action="" method="POST">
+  <select name="StockNames" id="StockList">
+    <option value="null"></option>
+    <option value="reliance-industries-ltd">Reliance Industries</option>
+    <option value="hdfc-bank-ltd">HDFC Bank</option>
+    <option value="tata-consultancy-services-ltd">
+      Tata Consultancy Services
+    </option>
+    <option value="infosys-ltd">Infosys</option>
+    <option value="icici-bank-ltd">ICICI Bank</option>
+    <option value="hindustan-unilever-ltd">Hindustan Unilever</option>
+    <option value="state-bank-of-india">SBI</option>
+    <input
+      class="submitButton button2 btn btn-secondary"
+      type="submit"
+      value="Submit"
+    />
+  </select>
+</form>
+<br />
+<hr style="height: 2px; border-width: 10; color: black" />
+
+<h3 style="text-align: center">
+  <b>{{StockInformation[1]}} - ₹{{StockInformation[0]}}</b>
+</h3>
+
+<div>
+  <table style="width: 100%">
+    <tr>
+      <th>Open Price</th>
+      <th>Previous Close</th>
+      <th>Volume</th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <td>{{StockInformation[14]}}</td>
+      <td>{{StockInformation[15]}}</td>
+      <td>{{StockInformation[12]}}</td>
+      <td>{{StockInformation[13]}}</td>
+    </tr>
+  </table>
+</div>
+<br />
+<h4 style="text-align: center">{{StockInformation[16][0]}}</h4>
+<br />
+<div>
+  <table style="width: 48%; float: left">
+    <tr>
+      <th>Fundamentals</th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <td>Market Cap</td>
+      <td>{{StockInformation[2]}}</td>
+    </tr>
+    <tr>
+      <td>P/E Ratio</td>
+      <td>{{StockInformation[3]}}</td>
+    </tr>
+    <tr>
+      <td>P/B Ratio</td>
+      <td>{{StockInformation[4]}}</td>
+    </tr>
+    <tr>
+      <td>Industry P/E</td>
+      <td>{{StockInformation[5]}}</td>
+    </tr>
+    <tr>
+      <td>Debt to Equity P/E</td>
+      <td>{{StockInformation[6]}}</td>
+    </tr>
+  </table>
+  <table style="width: 48%; float: right">
+    <tr>
+      <th>Fundamentals</th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <td>ROE</td>
+      <td>{{StockInformation[7]}}</td>
+    </tr>
+    <tr>
+      <td>EPS</td>
+      <td>{{StockInformation[8]}}</td>
+    </tr>
+    <tr>
+      <td>Dividend Yield</td>
+      <td>{{StockInformation[9]}}</td>
+    </tr>
+    <tr>
+      <td>Book Value</td>
+      <td>{{StockInformation[10]}}</td>
+    </tr>
+    <tr>
+      <td>Face Value</td>
+      <td>{{StockInformation[11]}}</td>
+    </tr>
+  </table>
+</div>
+{%endblock content%}

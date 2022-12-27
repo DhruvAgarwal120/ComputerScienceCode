@@ -1,0 +1,106 @@
+/* This is the CSS code for Home Page */
+.header {
+  font-size: 30px;
+  margin-top: 25px;
+  margin-left: 10px;
+}
+
+/* DeleteForm's Positioning */
+.DeleteHeader {
+  position: relative;
+  left: 1200px;
+  bottom: 140px;
+}
+.deleteForm {
+  position: relative;
+  left: 1250px;
+  bottom: 125px;
+}
+.submitButton {
+  position: relative;
+  bottom: -50px;
+  right: 140px;
+}
+
+.WishlistHeader {
+  font-size: 30px;
+  margin-left: 10px;
+  margin-top: -20px;
+}
+
+/* Code for Wishlist Table */
+.WLTable {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 10px;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #000000;
+  color: #ffffff;
+}
+.form {
+  margin-left: 20px;
+  margin-top: 20px;
+}
+/* This is the CSS code for Stock Search Page */
+
+.nameStock {
+  color: black;
+  font-size: 25px;
+  margin-top: 15px;
+  text-align: center;
+}
+.StockName {
+  margin-top: 10px;
+  text-align: center;
+  position: relative;
+  left: 30px;
+}
+.button2 {
+  position: relative;
+  bottom: -35px;
+  right: 137px;
+}
+
+/* This is the CSS Code for the Portfolio Page */
+.NewRecordBtn {
+  margin-top: 25px;
+  position: relative;
+  left: 800px;
+}
+.popup {
+  width: 400px;
+  background-color: black;
+  color: white;
+  position: absolute;
+  top: -200%;
+  left: 5%;
+  transform: translate(-50%);
+  text-align: center;
+  padding: 20px 20px 10px 20px;
+  visibility: hidden;
+}
+.btn {
+  background-color: white;
+  color: black;
+  padding: 2.5px 5px;
+}
+.open-popup {
+  visibility: visible;
+}
+
+.close-popup {
+  visibility: hidden;
+}
+.padding {
+  padding: 5px 10px;
+}

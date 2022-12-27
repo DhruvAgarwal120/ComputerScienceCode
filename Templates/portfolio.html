@@ -1,0 +1,114 @@
+{% extends 'base.html' %} {% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<div class="header">
+  <b>Portfolio:</b>
+</div>
+<table class="WLTable">
+  <tr>
+    <th>Stock Name</th>
+    <th>Current Stock Price</th>
+    <th>Quantity</th>
+    <th>Initial Purchase Price</th>
+    <th>Inital Investment Value</th>
+    <th>Current Investment Value</th>
+    <th>Unrealized Profit/Loss</th>
+  </tr>
+  {% for i in range(length) %}
+  <tr>
+    <td>{{names[i]}}</td>
+    <td id="{{names[i]}}">Price</td>
+  </tr>
+  {%endfor%}
+</table>
+
+<div class="NewRecordBtn">
+  <button
+    type="submit"
+    class="btn btn-secondary btn-lg active padding"
+    onclick="openPopup()"
+  >
+    Add New Stock
+  </button>
+  <div class="popup" id="popup">
+    <form action="" method="POST">
+      <label>Stock Name:</label><br />
+      <select name="StockName" id="StockList">
+        <option value="null"></option>
+        <option value="RELIANCE.NS">Reliance Industries</option>
+        <option value="HDFCBANK.NS">HDFC Bank</option>
+        <option value="TCS.NS">Tata Consultancy Services</option>
+        <option value="INFY.NS">Infosys</option>
+        <option value="ICICIBANK.NS">ICICI Bank</option>
+        <option value="HINDUNILVR.NS">Hindustan Unilever</option>
+        <option value="SBIN.NS">SBI</option>
+      </select>
+      <div style="margin-bottom: 10px"></div>
+      <label>Initial Purchase Price:</label><br />
+      <input type="number" name="IPP" required />
+      <div style="margin-bottom: 10px"></div>
+      <label>Quantity:</label><br />
+      <input type="number" name="Quantity" required />
+      <div style="margin-bottom: 10px"></div>
+      <div class="btn" name="popup" onclick="closePopup()">
+        <button type="submit" class="btn btn-secondary">Submit</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    var names = [];
+    // This function sends an XML Request to out route, which returns the names of the stocks that the user has selected
+    (function () {
+      function get_names() {
+        var x = new XMLHttpRequest();
+        x.open("get", "/StockNames", true);
+        x.send();
+        x.onload = function () {
+          names = x.responseText
+            .replace(" ", "")
+            .replace("[", "")
+            .replace("]", "")
+            .trim()
+            .split(",");
+          names.forEach((element) => {
+            console.log(element);
+            element.replace("\\", "").replace("\n", "");
+            console.log(element);
+          });
+        };
+      }
+
+      get_names();
+    })();
+    // This functions send an XML Request, and gets all the name from out api with appropriate formatting
+    (function () {
+      function get_value() {
+        // create an ajax request
+        var q = new XMLHttpRequest();
+
+        q.open("get", "/CurrentPrice", true);
+        q.send();
+        console.log(q);
+
+        q.onload = function () {
+          const stocks = q.responseText
+            .replace("[", "")
+            .replace("]", "")
+            .split(",");
+          for (var i = 0; i <= stocks.length - 1; i++) {
+            document.getElementById(
+              names[i].replace(/\n/g, "").replace(/['"]+/g, "").trim()
+            ).innerHTML = stocks[i];
+          }
+          // timeout to run again after 1 millisec - Used for continuously getting the stock price without the need for reloading the page
+          setTimeout(get_value, 3000);
+        };
+      }
+
+      // call the function to get it started
+      get_value();
+    })();
+  </script>
+  {%endblock content%}
+</div>

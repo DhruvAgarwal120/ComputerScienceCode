@@ -1,0 +1,111 @@
+{% extends 'base.html' %} {% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<div class="header">
+  <h2><b>Add Stock to Watchlist</b></h2>
+</div>
+<form action="" method="POST" class="form">
+  <label for="StockName"><b>Stock Name:</b></label>
+  <select name="StockName" id="StockList">
+    <option value="null"></option>
+    <option value="RELIANCE.NS">Reliance Industries</option>
+    <option value="HDFCBANK.NS">HDFC Bank</option>
+    <option value="TCS.NS">Tata Consultancy Services</option>
+    <option value="INFY.NS">Infosys</option>
+    <option value="ICICIBANK.NS">ICICI Bank</option>
+    <option value="HINDUNILVR.NS">Hindustan Unilever</option>
+    <option value="SBIN.NS">SBI</option>
+  </select>
+  <label for="lname"><b>Target Price:</b></label>
+  <input type="text" id="lname" name="TargetPrice" /><br /><br />
+  <input type="submit" value="Submit" />
+</form>
+<h2 class="DeleteHeader"><b>Delete Stock from Wishlist</b></h2>
+<form action="" method="POST" class="deleteForm">
+  <label for="StockName"><b>Stock Name:</b></label>
+  <select name="StockNameTBD" id="StockList">
+    <option value="null"></option>
+    <option value="RELIANCE.NS">Reliance Industries</option>
+    <option value="HDFCBANK.NS">HDFC Bank</option>
+    <option value="TCS.NS">Tata Consultancy Services</option>
+    <option value="INFY.NS">Infosys</option>
+    <option value="ICICIBANK.NS">ICICI Bank</option>
+    <option value="HINDUNILVR.NS">Hindustan Unilever</option>
+    <option value="SBIN.NS">SBI</option>
+    <input class="submitButton" type="submit" value="Submit" />
+  </select>
+</form>
+<div class="WishlistHeader">
+  <b>Watchlist:</b>
+</div>
+<table class="WLTable">
+  <tr>
+    <td id="red">Stock Ticker</td>
+    <td>Current Price</td>
+    <td>Entry Price</td>
+  </tr>
+  {% for i in range(length) %}
+  <tr>
+    <td>{{names[i]}}</td>
+    <td id="{{names[i]}}">Price</td>
+  </tr>
+  {%endfor%}
+</table>
+<script>
+  var names = [];
+  // This function sends an XML Request to out route, which returns the names of the stocks that the user has selected
+  (function () {
+    function get_names() {
+      var x = new XMLHttpRequest();
+      x.open("get", "/names", true);
+      x.send();
+      x.onload = function () {
+        names = x.responseText
+          .replace(" ", "")
+          .replace("[", "")
+          .replace("]", "")
+          .trim()
+          .split(",");
+        names.forEach((element) => {
+          console.log(element);
+          element.replace("\\", "").replace("\n", "");
+          console.log(element);
+        });
+      };
+    }
+
+    get_names();
+  })();
+  // This functions send an XML Request, and gets all the name from out api with appropriate formatting
+  (function () {
+    function get_value() {
+      // create an ajax request
+      var q = new XMLHttpRequest();
+
+      q.open("get", "/rel", true);
+      q.send();
+      console.log(q);
+
+      q.onload = function () {
+        const stocks = q.responseText
+          .replace("[", "")
+          .replace("]", "")
+          .split(",");
+        for (var i = 0; i <= stocks.length - 1; i++) {
+          document.getElementById(
+            names[i].replace(/\n/g, "").replace(/['"]+/g, "").trim()
+          ).innerHTML = stocks[i];
+        }
+        // timeout to run again after 1 millisec - Used for continuously getting the stock price without the need for reloading the page
+        setTimeout(get_value, 3000);
+      };
+    }
+
+    // call the function to get it started
+    get_value();
+  })();
+</script>
+
+<br /><br />
+<h5>Note: Click Submit to Display Watchlist</h5>
+{%endblock content%}
